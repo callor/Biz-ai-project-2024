@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mermaid": "^10.9.1",
     "next": "14.2.3",
     "openai": "^4.47.1",
     "react": "^18",
