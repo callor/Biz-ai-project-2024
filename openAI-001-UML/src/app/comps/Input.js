@@ -3,7 +3,12 @@ import { text_generation } from "@/api/text_gen";
 import css from "@/css/input.module.css";
 import { useCallback, useState } from "react";
 import ViewResultPage from "./ViewResult";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const InputPage = () => {
+  const { data: session, loading } = useSession();
+  const router = useRouter();
+
   const [wait, setWait] = useState(false);
   const [resultText, setResultText] = useState("");
   const [prompt, setPrompt] = useState({
@@ -12,14 +17,17 @@ const InputPage = () => {
     discription: "",
   });
   const onCreateHandler = useCallback(async () => {
+    if (!session) {
+      alert("로그인을 먼저 실행하세요");
+      return router.push("/login");
+    }
     const sendPrompt = `${prompt.project}를 구현하는데 필요한
         ${prompt.diagram}을 mermaid 스크립트 코드로 작성해 주세요
         그리고 다음의 내용을 포함하면 좋겠어요 ${prompt.diagram}
     `;
-
     const result = await text_generation(sendPrompt);
     setResultText(result);
-  });
+  }, [prompt, session, router]);
 
   return (
     <>
@@ -54,8 +62,12 @@ const InputPage = () => {
             setPrompt({ ...prompt, discription: e.target.value })
           }
         ></textarea>
-        <button type="button" onClick={onCreateHandler}>
-          생성하기
+        <button
+          type="button"
+          onClick={onCreateHandler}
+          className={css.btn_create}
+        >
+          {session?.user ? "생성하기" : "로그인을 먼저 실행하세요"}
         </button>
       </form>
       {resultText && <ViewResultPage resultText={resultText} />}

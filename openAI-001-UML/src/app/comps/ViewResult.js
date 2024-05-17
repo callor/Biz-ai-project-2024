@@ -34,9 +34,9 @@ const ViewResultPage = ({ resultText }) => {
         return "";
       } else if (flag && t.trim().startsWith("```")) {
         flag = false;
-        return "\n\n";
+        return "";
       } else if (flag) {
-        return `${t}\n`;
+        return `${t}`;
       } else {
         return "\n";
       }
@@ -52,7 +52,6 @@ const ViewResultPage = ({ resultText }) => {
       {resultText?.includes("```mermaid") && (
         <Mermaid chart={getMeraid(resultText)} />
       )}
-      <div>{getMeraid(resultText)}</div>
     </>
   );
 };
