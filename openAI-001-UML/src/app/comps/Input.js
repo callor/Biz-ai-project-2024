@@ -1,5 +1,5 @@
 "use client";
-import { text_generation } from "@/api/text_gen";
+import { text_generation } from "@/app/api/text_gen";
 import css from "@/css/input.module.css";
 import { useCallback, useState } from "react";
 import ViewResultPage from "./ViewResult";
