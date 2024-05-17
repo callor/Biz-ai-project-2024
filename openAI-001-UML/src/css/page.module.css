@@ -1,0 +1,16 @@
+.header {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: green;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
